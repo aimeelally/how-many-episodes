@@ -1,58 +1,65 @@
-// var request = require('request');
+'use strict';
 
-//   request.post(
-//       'https://api.thetvdb.com/login',
-//       { json: { key: 'value' } },
-//       function (error, response, body) {
-//         debugger;
-//           if (!error && response.statusCode == 200) {
-//               console.log(body);
-//           }
-//       }
-//   );
+const https = require('https-browserify');
+let token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTM0ODYxOTcsImlkIjoiIiwib3JpZ19pYXQiOjE1NTMzOTk3OTcsInVzZXJpZCI6NTIyMzgyLCJ1c2VybmFtZSI6ImxhbGx5YWltZWVldzkifQ.ZUiVnJCCX6s6_X45uep022J1U9GmX8pi02LXHRY72BmLYYCGfpyMYXpI-pqBQ5PJMJjVHn4c3oKymh5i5EVpIDQ1eKmGDDX1b1IZDMwXBNVq9VeCI10yKT7FpgjefZlhVzAd9ZjD-45iKQdrtdyx-zX7aiOiPWD29UxboSqAp4LFDZ1Pimdma1GaZU8Mij1kW0noGRR9YH--6KC8eZRRqYzOvZUBVralGV62HgbVXm6TCML9IT4YHv52TGRIbZ5xIab1OlLaEGVW1qqEMtZ8t9UautSzJSFF7N9Mr4nNZ2oiEr5jyPkLSCEfq8CVlNqsR_cj8rVr8_is164Z6TzdYA';
 
-// module.exports = function() {
-//   console.log('hi');
-// };
+var http_options = {
+  host: 'api.thetvdb.com',
+  path: '/search/series?name=game%20of%20thrones',
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer ' + token
+  }
+};
 
-console.log('I am running!');
-
-var request = require('request');
-(function() {
-  // request.post(
-  //   'https://api.thetvdb.com/login',
-  //   { json: { 
-  //       'apikey': 'Z3BTX2TVJCAZFDPX',
-  //       'userkey': 'AKKLFY7DSIO9JU8Q',
-  //       'username': 'lallyaimeeew9'
-  //     } },
-  //   function (error, response, body) {
-  //       if (!error && response.statusCode == 200) {
-  //           console.log(body);
-  //       }
-  //   }
-  // );
-
-  let token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTIyMTM2NDcsImlkIjoiIiwib3JpZ19pYXQiOjE1NTIxMjcyNDcsInVzZXJpZCI6NTIyMzgyLCJ1c2VybmFtZSI6ImxhbGx5YWltZWVldzkifQ.zbEQwoRBQ2I0-OQV8gTUrQ3a7u6_x2nzyV6eKyD_qrRCcT1vvCOJ-XddgmA5FhoE0ns3ff_NAIWOr-B-BXww3fjdxR5s_tlWBZmP7eXNXf2rMOdx2y2QoTVxXm8r8VzTfbUu0T1FOZU1BL2QWnsZ6kX9iVvWg1DWQKKjfxcoRfSyfzZCGxmGxW73bTtwvtU8upev2TYxQasipKD_NliTUsyz3ofy4joxuKPrhYiInpgQN2dbIj_KuSPFvy0Mr0AKgRLBMbqTHQYM9PAFrURnqZyyu2_NLfr_7NjGatj1J-FZ23FeUzH-H6f_EuBlt3hkSca8pKtq8QNdKDReOE2sFw';
-  request.get('https://api.thetvdb.com/search/series?name=game%20of%20thrones', {
-    json: true,
-    'auth': {
-      'bearer': token
-    },
-    function (error, response, body) {
-      console.log(error, response, body)
-            if (!error && response.statusCode == 200) {
-                console.log(body);
-            }
-        }
+var req = https.get(http_options, (res) => {
+  res.setEncoding("utf8");
+  let body = "";
+  res.on("data", data => {
+    body += data;
   });
-  // request.get(
-  //   'https://api.thetvdb.com/search/series?name=game%20of%20thrones',
-  //   { Authorization: Bearer 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTIyMTM2NDcsImlkIjoiIiwib3JpZ19pYXQiOjE1NTIxMjcyNDcsInVzZXJpZCI6NTIyMzgyLCJ1c2VybmFtZSI6ImxhbGx5YWltZWVldzkifQ.zbEQwoRBQ2I0-OQV8gTUrQ3a7u6_x2nzyV6eKyD_qrRCcT1vvCOJ-XddgmA5FhoE0ns3ff_NAIWOr-B-BXww3fjdxR5s_tlWBZmP7eXNXf2rMOdx2y2QoTVxXm8r8VzTfbUu0T1FOZU1BL2QWnsZ6kX9iVvWg1DWQKKjfxcoRfSyfzZCGxmGxW73bTtwvtU8upev2TYxQasipKD_NliTUsyz3ofy4joxuKPrhYiInpgQN2dbIj_KuSPFvy0Mr0AKgRLBMbqTHQYM9PAFrURnqZyyu2_NLfr_7NjGatj1J-FZ23FeUzH-H6f_EuBlt3hkSca8pKtq8QNdKDReOE2sFw' },
-  //   function (error, response, body) {
-  //       if (!error && response.statusCode == 200) {
-  //           console.log(body);
-  //       }
-  //   }
-  // );
-})();
+  res.on("end", () => {
+    body = JSON.parse(body);
+    console.log(body);
+  });
+  res.on("error", () => {
+    console.log(res);
+  });
+});
+
+req.end();
+
+// let episodesBySeason = [ 10, 10, 10, 10, 10, 10, 7 ];
+// let totalNumEpisodes = episodesBySeason.reduce((pre, cur) => pre ? pre + cur : pre = 0 ),
+//     numberWeeksLeft = getNumWeeksLeft();
+
+// howManyEpisodesLeftToWatch = () => {
+//   let numEpisodesLeftToWatch = getNumEpisodesRemaining();
+
+//   let el = document.getElementById('numEpisodes'),
+//       numEpisodesPerWeek = numEpisodesLeftToWatch/numberWeeksLeft;
+  
+//   el.innerHTML = `You need to watch at least ${numEpisodesPerWeek} episodes a week to be ready for season 8.`;
+//   el.style.opacity = '1';
+  
+//   return el;
+// }
+
+// function getNumWeeksLeft() {
+//   let today = new Date(),
+//       seasonStartDate = new Date(2019, 3, 15);
+
+//   return Math.round((seasonStartDate - today) / (7 * 24 * 60 * 60 * 1000));
+// }
+
+// function getNumEpisodesRemaining() {
+//   let currentSeason = Number(document.getElementById('season').value) - 1 || 0,
+//       currEpisode = Number(document.getElementById('episode').value) || 0;
+
+//   let totalEpisodesLeft = episodesBySeason
+//         .slice(currentSeason, episodesBySeason.length)
+//         .reduce((pre, curr) => pre ? pre + curr : pre = 0)
+//         - currEpisode;
+
+//   return totalEpisodesLeft;
+// }

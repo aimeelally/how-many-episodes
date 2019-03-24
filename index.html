@@ -1,62 +1,21 @@
-<!-- STYLES -->
-<style>
-  h3 {
-    opacity: 0;
-    transition: all 0.5s ease;
-  }
-</style>
-
-<!-- STYLES -->
-<h2>What episode are you on?</h2>
-<form onsubmit="howManyEpisodesLeftToWatch(); return false;">
-  <label>Season</label>
-  <input id="season" type="number" />
-  <label>Episode</label>
-  <input id="episode" type="number" />
-  <button>Well, how many?</button>
-  <button onclick="test()">test</button>
-</form>
-<h3 id="numEpisodes"></h3>
-
-
-<!-- SCRIPTS -->
-<script>
-
-  let episodesBySeason = [ 10, 10, 10, 10, 10, 10, 7 ];
-  let totalNumEpisodes = episodesBySeason.reduce((pre, cur) => pre ? pre + cur : pre = 0 ),
-      numberWeeksLeft = getNumWeeksLeft();
-
-  howManyEpisodesLeftToWatch = () => {
-    let numEpisodesLeftToWatch = getNumEpisodesRemaining();
-
-    let el = document.getElementById('numEpisodes'),
-        numEpisodesPerWeek = numEpisodesLeftToWatch/numberWeeksLeft;
-    
-    el.innerHTML = `You need to watch at least ${numEpisodesPerWeek} episodes a week to be ready for season 8.`;
-    el.style.opacity = '1';
-    
-    return el;
-  }
-
-  function getNumWeeksLeft() {
-    let today = new Date(),
-        seasonStartDate = new Date(2019, 3, 15);
-
-    return Math.round((seasonStartDate - today) / (7 * 24 * 60 * 60 * 1000));
-  }
-
-  function getNumEpisodesRemaining() {
-    let currentSeason = Number(document.getElementById('season').value) - 1 || 0,
-        currEpisode = Number(document.getElementById('episode').value) || 0;
-
-    let totalEpisodesLeft = episodesBySeason
-          .slice(currentSeason, episodesBySeason.length)
-          .reduce((pre, curr) => pre ? pre + curr : pre = 0)
-          - currEpisode;
-
-    return totalEpisodesLeft;
-  }
-
-  
-
-</script>
+<!doctype HTML>
+<html>
+	<head>
+		<title>
+			Index
+		</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<form onsubmit="howManyEpisodesLeftToWatch(); return false;">
+      <label>Season</label>
+      <input id="season" type="number" />
+      <label>Episode</label>
+      <input id="episode" type="number" />
+      <button>Well, how many?</button>
+    </form>
+    <h3 id="numEpisodes"></h3>
+    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="bundle.js"></script>
+	</body>
+</html>
